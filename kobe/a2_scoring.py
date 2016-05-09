@@ -42,7 +42,7 @@ for x, y in zip(kobe_x.iterrows(),kobe_y.iterrows()):
     		score.append(op)
 
 #print score[0:5]
-with open('data/attempt_2_output_alt.csv','w') as f:
+with open('data/attempt_2_output.csv','w') as f:
 	f.write('shot_id,shot_made_flag'+'\n')
 	f.writelines(str(s[0])+','+str(s[1])+'\n' for s in score)
 
