@@ -20,20 +20,20 @@ def logloss(act, pred):
 
 def predict_probabilities(X_train,X_test,y_train,threshold,component,m):
 	## Selector phase
-	selector = SelectFromModel(linear_model.LogisticRegression(),threshold=threshold)
+	#selector = SelectFromModel(linear_model.LogisticRegression(),threshold=threshold)
 	#print X_train, y_train
-	selector.fit(X_train,y_train)
-	new_X_train = selector.transform(X_train)
+	#selector.fit(X_train,y_train)
+	#new_X_train = selector.transform(X_train)
 	
 	##PCA phase
 	pca = PCA(n_components=component)
 	
-	pca.fit(new_X_train)
+	pca.fit(X_train)
 	pca_variance =  sum(pca.explained_variance_ratio_)
-	pca_X_train = pca.transform(new_X_train)
+	pca_X_train = pca.transform(X_train)
 	
 	#convert the X_test
-	pca_X_test = pca.transform(selector.transform(X_test))
+	pca_X_test = pca.transform(X_test)
 	
 	##Model phase
 	model = m[1]
@@ -80,8 +80,8 @@ if __name__ == '__main__':
 
 	X_scaled = preprocessing.scale(k_x)
 
-	thresholds = [x for x in x_range(0.01,0.05,0.005)]
-	components = [x for x in x_range(1,10,1)]
+	thresholds = [0.05]
+	components = [5]
 
 	models = [
 		['logmodel',linear_model.LogisticRegression()]#,
